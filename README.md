@@ -27,5 +27,3 @@ My primary contributions include:
 - Implementing screeners and backtesting modules
 - Creating options analytics and visualization tools
 - Improving the overall user interface and workflow
-
-The purpose of this repository is educational: 

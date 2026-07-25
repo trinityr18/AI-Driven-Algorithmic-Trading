@@ -1,0 +1,12 @@
+backend/.venv/
+backend/.cache/
+backend/.kite_session.json
+backend/.kite_uat_session.json
+backend/__pycache__/
+backend/*.log
+backend/*.pid
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+*.pyc
+.DS_Store

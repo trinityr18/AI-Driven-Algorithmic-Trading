@@ -1,0 +1,114 @@
+Varsity Kite Dashboard Build Prompts
+Prompt 1 — Login, User, Instruments, Snapshot, Realtime, Historical
+Read this chapter and use it as context for the application being built.
+Build a compact React + Vite frontend with a Python FastAPI backend for a Zerodha Kite Connect learning dashboard.
+The UI should look like a polished Zerodha Varsity-style dashboard: calm light-blue accents, clean white cards, professional spacing, responsive layout, and a beginner-friendly structure. Keep the dashboard practical and simple, not like a marketing page.
+Create a login page with a blue hero panel on the left and a login card on the right. The login form should collect:
+API Key
+API Secret
+Request Token
+On login, send the credentials to FastAPI. Use the Kite Connect Python SDK to generate the access token. Save only the API key and access token in a local backend session file. Do not expose the access token in the browser. Do not save the API secret or request token after authentication.
+Persist the saved Kite session during local development so the user does not need to log in again after refreshes or code changes. Add a backend session-check endpoint so the app can automatically open the dashboard if a valid saved session exists.
+After login, create a dashboard with these tabs:
+User
+Instruments
+Snapshot
+Realtime
+Historical
+The User tab should call the Kite profile API through the backend and display only:
+User Name
+User ID
+Products
+Exchanges
+The Instruments tab should load Kite instruments through the backend and show a clean searchable/filterable instrument explorer. Include filters for exchange, underlying, stock/symbol, instrument type such as EQ/FUT/CE/PE, and expiry where applicable. Combine derivatives under the user-facing exchange names where useful, for example NFO under NSE and BFO under BSE. The underlying dropdown should focus on F&O stocks and indices when derivatives are selected. Show both a clean table view and the relevant raw API response for learning.
+The Snapshot tab should allow the user to select one or more instruments and fetch quote-style snapshot data through the backend. Include views for clean data and formatted API response. Handle missing tokens, failed symbols, loading states, and Kite API errors gracefully.
+The Realtime tab should allow the user to add multiple instruments, start and stop a Kite WebSocket stream through the backend, and show incoming ticks live below the controls. Include a clean tick view and a formatted raw tick/API response view. Keep reconnect/error states visible and beginner-friendly.
+The Historical tab should allow the user to select an instrument, interval, date range, continuous mode where relevant, and OI where relevant. Fetch Kite historical candles through the backend. Show the last 10 rows in a clean table, show the full formatted API response in another view, and include an interactive OHLCV candlestick chart with hover tooltip showing date, open, high, low, close, and volume.
+Keep frontend and backend code organised so new tabs can be added later. Preserve a small project size, avoid unnecessary heavy libraries, and include clear setup/run instructions for Windows and macOS.
+Once complete, run the backend and frontend locally and open the dashboard in the system browser.
+
+Prompt 2 — SMA Backtest Tab
+Read this chapter and use it as context for the application being built.
+Add a new tab called SMA Backtest to the existing React + Vite frontend and Python FastAPI backend Zerodha Kite Connect dashboard.
+Use the saved Kite API key and access token from the existing backend session. Do not ask the user to log in again. Preserve the existing login flow, dashboard styling, backend structure, and other tabs.
+The SMA Backtest tab should let the user choose:
+Trading symbol
+From date
+To date
+Short SMA period
+Long SMA period
+Initial capital
+Use these defaults:
+Symbol: NIFTYBEES
+Short SMA: 10
+Long SMA: 40
+Initial capital: 500000
+Fetch daily historical candles from Kite through the backend. Calculate short and long simple moving averages using only past and current candle data. Ignore NaN SMA rows until enough candles are available.
+Strategy logic:
+Buy when the short SMA crosses above the long SMA.
+Sell when the short SMA crosses below the long SMA.
+Execute trades on the next candle open to avoid lookahead bias.
+Use full available capital for each buy.
+Do not short sell.
+Track cash, quantity, position value, and total portfolio value.
+Return:
+Candles with OHLCV and SMA values
+Buy and sell markers
+Trade log
+Portfolio history
+Initial capital
+Final portfolio value
+Total profit/loss
+Total return %
+Completed trades
+Winning trades
+Losing trades
+Win rate
+Current position status
+Frontend requirements:
+Add controls and a Run Backtest button.
+Persist results on the frontend when parameters have not changed, so the same daily backtest is not recalculated unnecessarily.
+Show summary metric cards.
+Show an interactive candlestick chart with SMA lines and buy/sell markers.
+Show the trade log.
+Show formatted API response for learning.
+Handle loading, missing data, invalid SMA periods, Kite errors, and insufficient candles gracefully.
+Keep the design consistent with the existing calm light-blue Varsity-style dashboard.
+
+Prompt 3 — Optimization Tab Built On SMA Backtest
+Read this chapter and use it as context for the application being built.
+Add a new tab called Optimization to the existing dashboard by reusing the SMA Backtest backend and frontend logic. Do not duplicate the whole SMA implementation. Extend it cleanly.
+The Optimization tab should work like the SMA Backtest tab, but add two risk controls:
+Stop-loss %
+Take-profit %
+Use these defaults:
+Short SMA: 10
+Long SMA: 40
+Stop-loss: 1%
+Take-profit: 5%
+Initial capital: 500000
+Reuse the saved Kite session. Do not ask the user to log in again. Preserve all existing tabs and styling.
+Strategy logic:
+Entry remains the same as SMA Backtest: buy when short SMA crosses above long SMA.
+Execute entry on the next candle open.
+While a position is open, exit if price hits stop-loss or take-profit.
+Also exit if the short SMA crosses below the long SMA.
+Execute SMA crossover exits on the next candle open.
+Use daily candles only, so if both stop-loss and take-profit are touched in the same candle, apply the stop-loss first as a conservative assumption.
+Do not short sell.
+Track exit reason as Stop Loss, Take Profit, or SMA Cross Down.
+Return everything from the SMA Backtest plus:
+Stop-loss %
+Take-profit %
+Exit reason per trade
+Risk-control metadata
+Frontend requirements:
+Add Stop-loss % and Take-profit % inputs.
+Add a Run Optimization button.
+Cache/persist results when parameters have not changed.
+Show the same chart style as SMA Backtest with OHLC candles, SMA lines, and buy/sell markers.
+Show summary cards.
+Show trade log with exit reason.
+Show formatted API response.
+Keep this tab clearly built on top of SMA Backtest so future optimisation work can test multiple stop-loss/take-profit combinations without rewriting the strategy.
+

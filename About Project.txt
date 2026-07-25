@@ -43,6 +43,6 @@ Validate and refine trading strategies by running backtests, analyzing performan
 
 Build an interactive options chain with live Greeks and real-time options market visualization
 
-Use your dashboard to analyze options data and build scanners for Open Interest(OI) walls, and implied volatility
+Use dashboard to analyze options data and build scanners for Open Interest(OI) walls, and implied volatility
 
 Build options strategies using the dashboard and create alerts for timely adjustments

@@ -4,3 +4,9 @@ Before starting the project, please ensure you have
 
 2. Kite Developer Account:(use same email credentials as the trading account to open devveloper account)
 https://developers.kite.trade/login	
+
+3. Kite API documentation (https://kite.trade/docs/connect/v3/user/#authentication-and-token-exchange)
+
+Use following url written in API url above:
+Login flow: The login flow starts by navigating to the public Kite login endpoint.
+https://kite.zerodha.com/connect/login?v=3&api_key=xxx

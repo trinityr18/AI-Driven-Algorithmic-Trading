@@ -27,3 +27,22 @@ My primary contributions include:
 - Implementing screeners and backtesting modules
 - Creating options analytics and visualization tools
 - Improving the overall user interface and workflow
+
+
+Tasks done:
+
+Set up a complete AI-powered development environment using Codex, Python, and Node.js
+
+Create and configure a Kite Developer account to access market data and trading APIs
+
+Build trading dashboard by creating a login interface and integrating market data through Kite APIs
+
+Use AI to build, combine, and optimize rule-based trading strategies using technical indicators and natural language prompts
+
+Validate and refine trading strategies by running backtests, analyzing performance metrics, and iterating with your AI powered dashboard
+
+Build an interactive options chain with live Greeks and real-time options market visualization
+
+Use your dashboard to analyze options data and build scanners for Open Interest(OI) walls, and implied volatility
+
+Build options strategies using the dashboard and create alerts for timely adjustments
